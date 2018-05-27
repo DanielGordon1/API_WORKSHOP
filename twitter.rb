@@ -1,8 +1,12 @@
 require 'twitter'
+require 'yaml'
+
+api_cons = YAML.load_file('api_keys.yml')['TWITTER_CONS']
+api_secret = YAML.load_file('api_keys.yml')['TWITTER_SECRET']
 
 client = Twitter::REST::Client.new do |config|
-  config.consumer_key        = "MudCp5XxK8aZTOJQHW1nmQczz"
-  config.consumer_secret     = "uliRBW7Ih9R7gVKgod59z7Xp2ggazPpskuKWy5vS4bOiMazxII"
+  config.consumer_key        = api_cons
+  config.consumer_secret     = api_secret
 end
 
 puts "ARE YOU READY? \n\n"
@@ -19,6 +23,6 @@ array = []
 client.search("justinbieber marry me").take(300).collect do |tweet|
   designed_tweet = "#{tweet.user.screen_name}: #{tweet.text}"
   puts "#{designed_tweet} \n\n" unless ((array.include? tweet.text) || designed_tweet != designed_tweet.strip)
-  sleep(3)
+  sleep(1)
   array << tweet.text
 end

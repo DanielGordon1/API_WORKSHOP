@@ -1,4 +1,9 @@
 require "rubeetup"
+require 'yaml'
+
+api_key = YAML.load_file('api_keys.yml')['MEETUP']
+
+
 # MeetupClient.configure do |config|
 #   config.api_key = "424761a5d797077520521a736e244b"
 # end
@@ -13,10 +18,10 @@ require "rubeetup"
 # meetup_api = MeetupApi.new
 
 # p meetup_api
-# p meetup_api.events(params)
+# p meetup_api.eventnts(params)
 
 
-auth = { key: '424761a5d797077520521a736e244b' }
+auth = { key: api_key }
 
 Rubeetup.default_auth(auth)
 requester = Rubeetup.setup

@@ -1,12 +1,16 @@
 require 'twilio-ruby'
+require 'yaml'
+require 'yaml'
 
-account_sid = "AC7e52f2263604bb37e4468676c5d8029b" # Your Account SID from www.twilio.com/console
-auth_token = "dfa37f92adba6a1bba3ab067d029e47d"   # Your Auth Token from www.twilio.com/console
+account_sid = YAML.load_file('api_keys.yml')['TWILIO_SID'] # Your Account SID from www.twilio.com/console
+auth_token = YAML.load_file('api_keys.yml')['TWILIO_AUTH'] # Your Auth Token from www.twilio.com/console
+twilio_number = YAML.load_file('api_keys.yml')['TWILIO_NUM']
+my_number = YAML.load_file('api_keys.yml')['MY_NUM']
 
 @client = Twilio::REST::Client.new account_sid, auth_token
 message = @client.messages.create(
     body: "Bla bla bla",
-    to: "+6282147388762",    # Replace with your phone number
-    from: "+17199660836")  # Replace with your Twilio number
+    to: my_number,    # Replace with your phone number
+    from: twilio_number)  # Replace with your Twilio number
 
 puts message.sid
